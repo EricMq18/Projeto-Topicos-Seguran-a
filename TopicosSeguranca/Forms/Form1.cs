@@ -20,6 +20,7 @@ namespace TopicosSeguranca
         TcpClient client;
         NetworkStream networkStream;
         ProtocolSI protocolSI;
+        Conectar conectar = new Conectar();
         public Form1()
         {
             InitializeComponent();
@@ -28,38 +29,26 @@ namespace TopicosSeguranca
 
         private void btnConectar_Click(object sender, EventArgs e)
         {           
+            
             if(JaConectou == false)
             {
                 JaConectou = true;
-                ConectarServidor();             
+                //ConectarServidor();
+                conectar.Conexao(); 
             }            
-        }
-
-        private void ConectarServidor()
-        {
-            try
-            {
-                client = new TcpClient("127.0.0.1", 4000);
-                networkStream = client.GetStream();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.ToString());
-                throw;
-            }
-            
         }
 
         private void btnEnviar_Click(object sender, EventArgs e)
         {
-            if (networkStream != null && client.Connected && !string.IsNullOrWhiteSpace(txtChat.Text))
-            {                
+            //if (networkStream != null && client.Connected && !string.IsNullOrWhiteSpace(txtChat.Text))
+            //{                
                 string msg = txtChat.Text;
-                byte[] packet = protocolSI.Make(ProtocolSICmdType.DATA, msg);                
-                networkStream.Write(packet, 0, packet.Length);                
+                conectar.LerMensagem(msg);
+                //byte[] packet = protocolSI.Make(ProtocolSICmdType.DATA, msg);                
+                //networkStream.Write(packet, 0, packet.Length);                
                 lstMensagens.Items.Add(msg);
                 txtChat.Clear();
-            }
+            //}
         }
     }
 }
