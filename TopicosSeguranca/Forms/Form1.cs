@@ -61,5 +61,10 @@ namespace TopicosSeguranca
                 txtChat.Clear();
             }
         }
+
+        private void txtChat_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
