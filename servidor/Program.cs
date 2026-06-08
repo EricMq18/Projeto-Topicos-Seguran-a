@@ -16,6 +16,7 @@ namespace servidor
         static void Main(string[] args)
         {
             Console.WriteLine($"Servidor Foi Iniciado");
+            Logger.Gravar("Servidor Foi Iniciado"); //Log para inicialização do servidor
 
             TcpListener listener = new TcpListener(IPAddress.Any, 4000);
             listener.Start();
@@ -27,6 +28,7 @@ namespace servidor
                 // Pega o IP real do cliente que acabou de se conectar
                 string ipCliente = ((IPEndPoint)client.Client.RemoteEndPoint).Address.ToString();
                 Console.WriteLine($"Cliente [{ipCliente}] conectado");
+                Logger.Gravar($"Cliente [{ipCliente}] conectado"); //Log cliente connectado
 
                 // Adiciona o cliente na lista de forma segura
                 lock (listaLock)
@@ -57,6 +59,7 @@ namespace servidor
                         case ProtocolSICmdType.DATA:
                             string msg = protocolSI.GetStringFromData();
                             Console.WriteLine($"Cliente {ipUser}: {msg}");
+                            Logger.Gravar($"Cliente {ipUser}: {msg}"); //Log mensagem recebida do cliente
 
                             // Prepara o pacote para retransmitir para TODOS os clientes
                             byte[] pacoteRetransmissao = protocolSI.Make(ProtocolSICmdType.DATA, msg);
@@ -83,6 +86,7 @@ namespace servidor
             catch (Exception e)
             {
                 Console.WriteLine($"Erro com o cliente [{ipUser}]: " + e.Message);
+                Logger.Gravar($"Erro com o cliente [{ipUser}]: " + e.Message); //Log erro com cliente
             }
             finally
             {
@@ -93,6 +97,7 @@ namespace servidor
                 }
                 client.Close();
                 Console.WriteLine($"Cliente [{ipUser}] desconectado.");
+                Logger.Gravar($"Cliente [{ipUser}] desconectado."); //Log cliente desconectado
             }
         }
     }
