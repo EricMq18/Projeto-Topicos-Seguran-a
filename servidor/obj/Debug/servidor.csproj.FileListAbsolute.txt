@@ -8,3 +8,12 @@ C:\Users\ericm\Documents\CSharp\TopicosSeguranca\servidor\obj\Debug\servidor.csp
 C:\Users\ericm\Documents\CSharp\TopicosSeguranca\servidor\obj\Debug\servidor.exe
 C:\Users\ericm\Documents\CSharp\TopicosSeguranca\servidor\obj\Debug\servidor.pdb
 C:\Users\ericm\Documents\CSharp\TopicosSeguranca\servidor\obj\Debug\servidor.exe.config
+C:\Users\marti\Desktop\Projeto TS\servidor\bin\Debug\servidor.exe.config
+C:\Users\marti\Desktop\Projeto TS\servidor\bin\Debug\servidor.exe
+C:\Users\marti\Desktop\Projeto TS\servidor\bin\Debug\servidor.pdb
+C:\Users\marti\Desktop\Projeto TS\servidor\obj\Debug\servidor.csproj.AssemblyReference.cache
+C:\Users\marti\Desktop\Projeto TS\servidor\obj\Debug\servidor.exe.config
+C:\Users\marti\Desktop\Projeto TS\servidor\obj\Debug\servidor.csproj.CoreCompileInputs.cache
+C:\Users\marti\Desktop\Projeto TS\servidor\obj\Debug\servidor.csproj.Up2Date
+C:\Users\marti\Desktop\Projeto TS\servidor\obj\Debug\servidor.exe
+C:\Users\marti\Desktop\Projeto TS\servidor\obj\Debug\servidor.pdb

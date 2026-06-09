@@ -1,0 +1,65 @@
+﻿[2026-06-09 15:59:47] Servidor Foi Iniciado
+[2026-06-09 16:00:31] Cliente [127.0.0.1] conectado
+[2026-06-09 16:00:38] Cliente 127.0.0.1: 1234
+[2026-06-09 16:01:05] Erro com o cliente [127.0.0.1]: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host.
+[2026-06-09 16:01:05] Cliente [127.0.0.1] desconectado.
+[2026-06-09 16:13:07] Servidor Foi Iniciado
+[2026-06-09 16:13:13] Cliente [127.0.0.1] conectado
+[2026-06-09 16:13:29] Cliente 127.0.0.1: Write your mess12345age
+[2026-06-09 16:14:31] Erro com o cliente [127.0.0.1]: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host.
+[2026-06-09 16:14:31] Cliente [127.0.0.1] desconectado.
+[2026-06-09 16:28:00] Servidor Foi Iniciado
+[2026-06-09 16:28:06] Cliente [127.0.0.1] conectado
+[2026-06-09 16:28:14] Cliente 127.0.0.1: Write your message
+[2026-06-09 16:28:25] Cliente 127.0.0.1: 12345
+[2026-06-09 16:28:29] Erro com o cliente [127.0.0.1]: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host.
+[2026-06-09 16:28:29] Cliente [127.0.0.1] desconectado.
+[2026-06-09 16:42:19] Servidor Foi Iniciado
+[2026-06-09 16:42:30] Cliente [127.0.0.1] conectado
+[2026-06-09 16:42:30] Chave Pública recebida do cliente [127.0.0.1]
+[2026-06-09 16:48:28] Erro com o cliente [127.0.0.1]: Object reference not set to an instance of an object.
+[2026-06-09 16:48:28] Cliente [127.0.0.1] desconectado.
+[2026-06-09 16:48:42] Servidor Foi Iniciado
+[2026-06-09 16:48:48] Cliente [127.0.0.1] conectado
+[2026-06-09 16:48:48] Chave Pública recebida do cliente [127.0.0.1]
+[2026-06-09 16:49:04] Cliente 127.0.0.1: Write your message
+[2026-06-09 16:49:53] Erro com o cliente [127.0.0.1]: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host.
+[2026-06-09 16:49:53] Cliente [127.0.0.1] desconectado.
+[2026-06-09 17:00:35] Servidor Foi Iniciado
+[2026-06-09 17:01:03] Cliente [127.0.0.1] conectado
+[2026-06-09 17:01:03] Chave Pública recebida do cliente [127.0.0.1]
+[2026-06-09 17:01:06] Cliente [127.0.0.1] conectado
+[2026-06-09 17:01:06] Chave Pública recebida do cliente [127.0.0.1]
+[2026-06-09 17:01:11] Cliente 127.0.0.1 disse: Write your message
+[2026-06-09 17:01:23] Cliente 127.0.0.1 disse: vai po crl
+[2026-06-09 17:02:37] Cliente 127.0.0.1 disse: obrigado amigo
+[2026-06-09 17:02:47] Cliente 127.0.0.1 disse: te amo
+[2026-06-09 17:02:51] Cliente 127.0.0.1 disse: tbm
+[2026-06-09 17:03:22] Cliente 127.0.0.1 disse: otario sou hombre
+sry soy hombre
+[2026-06-09 17:03:44] Cliente 127.0.0.1 disse: ulala
+[2026-06-09 17:03:46] Erro com o cliente [127.0.0.1]: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host.
+[2026-06-09 17:03:46] Cliente [127.0.0.1] desconectado.
+[2026-06-09 17:03:47] Erro com o cliente [127.0.0.1]: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host.
+[2026-06-09 17:03:47] Cliente [127.0.0.1] desconectado.
+[2026-06-09 17:22:57] Servidor Foi Iniciado
+[2026-06-09 17:23:05] Cliente [127.0.0.1] conectado
+[2026-06-09 17:23:05] Chave Pública recebida do cliente [127.0.0.1]
+[2026-06-09 17:23:08] Cliente 127.0.0.1 enviou a mensagem cifrada: xqMDM11xyAnZguKK22fdYNTJVlv4WwJX4JckStk7Q3o=
+[2026-06-09 17:23:20] Erro com o cliente [127.0.0.1]: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host.
+[2026-06-09 17:23:20] Cliente [127.0.0.1] desconectado.
+[2026-06-09 17:23:23] Servidor Foi Iniciado
+[2026-06-09 17:23:42] Cliente [127.0.0.1] conectado
+[2026-06-09 17:23:42] Chave Pública recebida do cliente [127.0.0.1]
+[2026-06-09 17:23:43] Cliente [127.0.0.1] conectado
+[2026-06-09 17:23:43] Chave Pública recebida do cliente [127.0.0.1]
+[2026-06-09 17:23:47] Cliente 127.0.0.1 enviou a mensagem cifrada: SR53s/GFLIsZR94/993TJSKRrWk8Y07UPXxxIuZtgBA=
+[2026-06-09 17:44:43] Servidor Foi Iniciado
+[2026-06-09 17:45:02] Cliente [127.0.0.1] conectado
+[2026-06-09 17:45:02] Chave Pública recebida do cliente [127.0.0.1]
+[2026-06-09 17:45:03] Cliente [127.0.0.1] conectado
+[2026-06-09 17:45:03] Chave Pública recebida do cliente [127.0.0.1]
+[2026-06-09 17:45:27] [ASSINATURA VÁLIDA] Cliente 127.0.0.1: Write your message
+[2026-06-09 17:46:12] [ASSINATURA VÁLIDA] Cliente 127.0.0.1: 1234
+[2026-06-09 17:46:22] Erro com o cliente [127.0.0.1]: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host.
+[2026-06-09 17:46:22] Cliente [127.0.0.1] desconectado.

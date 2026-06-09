@@ -22,3 +22,15 @@ C:\Users\Eric\source\repos\Projeto-Topicos-Seguran-a\TopicosSeguranca\obj\Debug\
 C:\Users\Eric\source\repos\Projeto-Topicos-Seguran-a\TopicosSeguranca\obj\Debug\TopicosS.6C369411.Up2Date
 C:\Users\Eric\source\repos\Projeto-Topicos-Seguran-a\TopicosSeguranca\obj\Debug\TopicosSeguranca.exe
 C:\Users\Eric\source\repos\Projeto-Topicos-Seguran-a\TopicosSeguranca\obj\Debug\TopicosSeguranca.pdb
+C:\Users\marti\Desktop\Projeto TS\TopicosSeguranca\bin\Debug\TopicosSeguranca.exe.config
+C:\Users\marti\Desktop\Projeto TS\TopicosSeguranca\bin\Debug\TopicosSeguranca.exe
+C:\Users\marti\Desktop\Projeto TS\TopicosSeguranca\bin\Debug\TopicosSeguranca.pdb
+C:\Users\marti\Desktop\Projeto TS\TopicosSeguranca\obj\Debug\TopicosSeguranca.csproj.AssemblyReference.cache
+C:\Users\marti\Desktop\Projeto TS\TopicosSeguranca\obj\Debug\TopicosSeguranca.exe.config
+C:\Users\marti\Desktop\Projeto TS\TopicosSeguranca\obj\Debug\TopicosSeguranca.Form1.resources
+C:\Users\marti\Desktop\Projeto TS\TopicosSeguranca\obj\Debug\TopicosSeguranca.Properties.Resources.resources
+C:\Users\marti\Desktop\Projeto TS\TopicosSeguranca\obj\Debug\TopicosSeguranca.csproj.GenerateResource.cache
+C:\Users\marti\Desktop\Projeto TS\TopicosSeguranca\obj\Debug\TopicosSeguranca.csproj.CoreCompileInputs.cache
+C:\Users\marti\Desktop\Projeto TS\TopicosSeguranca\obj\Debug\TopicosS.6C369411.Up2Date
+C:\Users\marti\Desktop\Projeto TS\TopicosSeguranca\obj\Debug\TopicosSeguranca.exe
+C:\Users\marti\Desktop\Projeto TS\TopicosSeguranca\obj\Debug\TopicosSeguranca.pdb
