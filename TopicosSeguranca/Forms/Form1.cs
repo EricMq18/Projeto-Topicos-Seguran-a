@@ -72,7 +72,7 @@ namespace TopicosSeguranca
             minhaChavePrivada = rsa.ToXmlString(true);
 
             // Só para testares e veres se funcionou (podes apagar isto depois):
-            MessageBox.Show("Chaves RSA geradas com sucesso ao iniciar o cliente!");
+            //MessageBox.Show("Chaves RSA geradas com sucesso ao iniciar o cliente!");
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Threading;
 using System.Windows.Forms;
 using System.IO;
+using System.Text;
 
 namespace TopicosSeguranca
 {
@@ -87,14 +88,18 @@ namespace TopicosSeguranca
 
                     if (protocolReader.GetCmdType() == ProtocolSICmdType.DATA)
                     {
-                        // 1. Lê a mensagem cifrada que chegou
-                        string msgCifrada = protocolReader.GetStringFromData();
+                        string pacoteRecebido = protocolReader.GetStringFromData();
 
-                        // 2. DECIFRA A MENSAGEM usando a nossa chave AES
-                        string msgDecifrada = DecifrarAES(msgCifrada);
+                        // Separa a cifra da assinatura
+                        string[] partes = pacoteRecebido.Split(new string[] { "|#SIGN#|" }, StringSplitOptions.None);
 
-                        // 3. Envia o texto limpo para o chat
-                        form.AdicionarMensagemNoChat(msgDecifrada);
+                        if (partes.Length == 2)
+                        {
+                            string msgCifrada = partes[0];
+                            // Decifra apenas a parte da mensagem e ignora a assinatura ao colocar no chat
+                            string msgDecifrada = DecifrarAES(msgCifrada);
+                            form.AdicionarMensagemNoChat(msgDecifrada);
+                        }
                     }
                     else if (protocolReader.GetCmdType() == ProtocolSICmdType.SECRET_KEY)
                     {
@@ -110,7 +115,7 @@ namespace TopicosSeguranca
                         // 2. Decifrar usando o nosso RSA
                         aesIV = rsaCliente.Decrypt(ivCifrado, true);
 
-                        MessageBox.Show("Chave AES e IV recebidos. Canal de comunicação seguro estabelecido!");
+                        //MessageBox.Show("Chave AES e IV recebidos. Canal de comunicação seguro estabelecido!");
                     }
                 }
             }
@@ -124,11 +129,17 @@ namespace TopicosSeguranca
         {
             if (networkStream != null && client.Connected && !string.IsNullOrWhiteSpace(msg))
             {
-                // 1. CIFRAMOS A MENSAGEM ANTES DE ENVIAR
+                // 1. Criar a assinatura do texto original
+                string assinatura = GerarAssinatura(msg);
+
+                // 2. Cifrar a mensagem com AES
                 string msgCifrada = CifrarAES(msg);
 
-                // 2. ENVIAMOS O TEXTO CIFRADO (em Base64)
-                byte[] packet = protocolSI.Make(ProtocolSICmdType.DATA, msgCifrada);
+                // 3. Juntar a cifra e a assinatura no mesmo pacote
+                string pacoteCompleto = msgCifrada + "|#SIGN#|" + assinatura;
+
+                // 4. Enviar para a rede
+                byte[] packet = protocolSI.Make(ProtocolSICmdType.DATA, pacoteCompleto);
                 networkStream.Write(packet, 0, packet.Length);
             }
         }
@@ -172,6 +183,14 @@ namespace TopicosSeguranca
                     }
                 }
             }
+        }
+
+        private string GerarAssinatura(string textoPlano)
+        {
+            // O rsaCliente tem a tua chave privada e pública
+            byte[] dados = Encoding.UTF8.GetBytes(textoPlano);
+            byte[] assinatura = rsaCliente.SignData(dados, CryptoConfig.MapNameToOID("SHA256"));
+            return Convert.ToBase64String(assinatura);
         }
     }
 }

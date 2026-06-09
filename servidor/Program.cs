@@ -6,6 +6,7 @@ using System.Threading;
 using EI.SI;
 using System.Security.Cryptography;
 using System.IO;
+using System.Text;
 
 namespace servidor
 {
@@ -14,6 +15,8 @@ namespace servidor
         // Lista estática para armazenar todos os clientes ativos
         static List<TcpClient> clientesConectados = new List<TcpClient>();
         static readonly object listaLock = new object(); // Objeto para evitar problemas de concorrência na lista
+
+        static Dictionary<TcpClient, string> chavesPublicas = new Dictionary<TcpClient, string>();
 
         static AesCryptoServiceProvider aes;
 
@@ -65,6 +68,9 @@ namespace servidor
                         // 4. para lidar com a Chave Pública
                         case ProtocolSICmdType.PUBLIC_KEY:
                             string chavePublicaCliente = protocolSI.GetStringFromData();
+
+                            lock (listaLock) { chavesPublicas[client] = chavePublicaCliente; }
+
                             Console.WriteLine($"Chave Pública recebida do cliente [{ipUser}]");
                             Logger.Gravar($"Chave Pública recebida do cliente [{ipUser}]");
 
@@ -93,36 +99,60 @@ namespace servidor
                             break;
 
                         case ProtocolSICmdType.DATA:
-                            string msgCifrada = protocolSI.GetStringFromData();
+                            string pacoteRecebido = protocolSI.GetStringFromData();
+                            string[] partes = pacoteRecebido.Split(new string[] { "|#SIGN#|" }, StringSplitOptions.None);
 
-                            // 1. Decifrar a mensagem para o Servidor a conseguir ler/logar em texto limpo
-                            string msgDecifrada = "";
-                            using (ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV))
-                            using (MemoryStream ms = new MemoryStream(Convert.FromBase64String(msgCifrada)))
-                            using (CryptoStream cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
-                            using (StreamReader sr = new StreamReader(cs))
+                            if (partes.Length == 2)
                             {
-                                msgDecifrada = sr.ReadToEnd();
-                            }
+                                string msgCifrada = partes[0];
+                                string assinaturaBase64 = partes[1];
 
-                            Console.WriteLine($"Cliente {ipUser} disse: {msgDecifrada}");
-                            Logger.Gravar($"Cliente {ipUser} disse: {msgDecifrada}");
-
-                            // 2. Retransmitir a mensagem CIFRADA ORIGINAL para que os outros clientes a possam decifrar
-                            byte[] pacoteRetransmissao = protocolSI.Make(ProtocolSICmdType.DATA, msgCifrada);
-
-                            lock (listaLock)
-                            {
-                                foreach (TcpClient c in clientesConectados)
+                                // 1. Decifrar a mensagem para conseguirmos verificar a assinatura
+                                string msgDecifrada = "";
+                                using (ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV))
+                                using (MemoryStream ms = new MemoryStream(Convert.FromBase64String(msgCifrada)))
+                                using (CryptoStream cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
+                                using (StreamReader sr = new StreamReader(cs))
                                 {
-                                    if (c.Connected)
+                                    msgDecifrada = sr.ReadToEnd();
+                                }
+
+                                // 2. VERIFICAR A ASSINATURA DIGITAL
+                                bool assinaturaValida = false;
+                                using (RSACryptoServiceProvider rsaVerify = new RSACryptoServiceProvider())
+                                {
+                                    // Vai buscar a chave pública de quem enviou
+                                    rsaVerify.FromXmlString(chavesPublicas[client]);
+
+                                    byte[] hashOriginal = Encoding.UTF8.GetBytes(msgDecifrada);
+                                    byte[] assinaturaBytes = Convert.FromBase64String(assinaturaBase64);
+
+                                    // A magia acontece aqui: verifica se o texto corresponde à assinatura
+                                    assinaturaValida = rsaVerify.VerifyData(hashOriginal, CryptoConfig.MapNameToOID("SHA256"), assinaturaBytes);
+                                }
+
+                                if (assinaturaValida)
+                                {
+                                    Console.WriteLine($"[ASSINATURA VÁLIDA] Cliente {ipUser}: {msgDecifrada}");
+                                    Logger.Gravar($"[ASSINATURA VÁLIDA] Cliente {ipUser}: {msgDecifrada}");
+
+                                    // Retransmitir o pacote inteiro (cifra + assinatura) aos outros clientes
+                                    byte[] pacoteRetransmissao = protocolSI.Make(ProtocolSICmdType.DATA, pacoteRecebido);
+                                    lock (listaLock)
                                     {
-                                        try
+                                        foreach (TcpClient c in clientesConectados)
                                         {
-                                            c.GetStream().Write(pacoteRetransmissao, 0, pacoteRetransmissao.Length);
+                                            if (c.Connected)
+                                            {
+                                                try { c.GetStream().Write(pacoteRetransmissao, 0, pacoteRetransmissao.Length); }
+                                                catch { }
+                                            }
                                         }
-                                        catch { }
                                     }
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"[ALERTA!] Assinatura inválida do cliente {ipUser}. Mensagem bloqueada!");
                                 }
                             }
                             break;
