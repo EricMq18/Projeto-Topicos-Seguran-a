@@ -11,3 +11,14 @@ C:\Users\ericm\Documents\CSharp\TopicosSeguranca\TopicosSeguranca\obj\Debug\Topi
 C:\Users\ericm\Documents\CSharp\TopicosSeguranca\TopicosSeguranca\obj\Debug\TopicosSeguranca.exe
 C:\Users\ericm\Documents\CSharp\TopicosSeguranca\TopicosSeguranca\obj\Debug\TopicosSeguranca.pdb
 C:\Users\ericm\Documents\CSharp\TopicosSeguranca\TopicosSeguranca\obj\Debug\TopicosSeguranca.exe.config
+C:\Users\Eric\source\repos\Projeto-Topicos-Seguran-a\TopicosSeguranca\bin\Debug\TopicosSeguranca.exe.config
+C:\Users\Eric\source\repos\Projeto-Topicos-Seguran-a\TopicosSeguranca\bin\Debug\TopicosSeguranca.exe
+C:\Users\Eric\source\repos\Projeto-Topicos-Seguran-a\TopicosSeguranca\bin\Debug\TopicosSeguranca.pdb
+C:\Users\Eric\source\repos\Projeto-Topicos-Seguran-a\TopicosSeguranca\obj\Debug\TopicosSeguranca.csproj.AssemblyReference.cache
+C:\Users\Eric\source\repos\Projeto-Topicos-Seguran-a\TopicosSeguranca\obj\Debug\TopicosSeguranca.Form1.resources
+C:\Users\Eric\source\repos\Projeto-Topicos-Seguran-a\TopicosSeguranca\obj\Debug\TopicosSeguranca.Properties.Resources.resources
+C:\Users\Eric\source\repos\Projeto-Topicos-Seguran-a\TopicosSeguranca\obj\Debug\TopicosSeguranca.csproj.GenerateResource.cache
+C:\Users\Eric\source\repos\Projeto-Topicos-Seguran-a\TopicosSeguranca\obj\Debug\TopicosSeguranca.csproj.CoreCompileInputs.cache
+C:\Users\Eric\source\repos\Projeto-Topicos-Seguran-a\TopicosSeguranca\obj\Debug\TopicosS.6C369411.Up2Date
+C:\Users\Eric\source\repos\Projeto-Topicos-Seguran-a\TopicosSeguranca\obj\Debug\TopicosSeguranca.exe
+C:\Users\Eric\source\repos\Projeto-Topicos-Seguran-a\TopicosSeguranca\obj\Debug\TopicosSeguranca.pdb
