@@ -96,13 +96,14 @@
             // 
             // btnEnviar
             // 
-            this.btnEnviar.BackColor = System.Drawing.Color.White;
+            this.btnEnviar.BackColor = System.Drawing.SystemColors.Window;
+            this.btnEnviar.Font = new System.Drawing.Font("Microsoft Sans Serif", 17F);
             this.btnEnviar.ForeColor = System.Drawing.SystemColors.WindowText;
             this.btnEnviar.Location = new System.Drawing.Point(1009, 550);
             this.btnEnviar.Name = "btnEnviar";
             this.btnEnviar.Size = new System.Drawing.Size(50, 41);
             this.btnEnviar.TabIndex = 4;
-            this.btnEnviar.Text = "=>";
+            this.btnEnviar.Text = "➜";
             this.btnEnviar.UseVisualStyleBackColor = false;
             this.btnEnviar.Click += new System.EventHandler(this.btnEnviar_Click);
             // 
@@ -140,7 +141,7 @@
             // 
             // btnPesquisar
             // 
-            this.btnPesquisar.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPesquisar.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.btnPesquisar.ForeColor = System.Drawing.Color.Black;
             this.btnPesquisar.Location = new System.Drawing.Point(266, 123);
             this.btnPesquisar.Name = "btnPesquisar";
@@ -169,6 +170,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Messages";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

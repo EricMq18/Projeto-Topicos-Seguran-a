@@ -1,7 +1,8 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using EI.SI;
+using System;
 using System.Net.Sockets;
-using EI.SI;
+using System.Security.Cryptography;
+using System.Windows.Forms;
 
 namespace TopicosSeguranca
 {
@@ -9,6 +10,10 @@ namespace TopicosSeguranca
     {
         bool JaConectou = false;
         Conectar conectar = new Conectar();
+
+        private RSACryptoServiceProvider rsa;
+        private string minhaChavePublica;
+        private string minhaChavePrivada;
 
         public Form1()
         {
@@ -20,8 +25,7 @@ namespace TopicosSeguranca
             if (JaConectou == false)
             {
                 JaConectou = true;
-                // Passa o 'this' (este formulário) para a classe Conectar
-                conectar.Conexao(this);
+                conectar.Conexao(this, rsa);
             }
         }
 
@@ -54,6 +58,21 @@ namespace TopicosSeguranca
         private void txtChat_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // Inicializar o RSA com um tamanho de chave de 2048 bits
+            rsa = new RSACryptoServiceProvider(2048);
+
+            // Extrair a Chave Pública (false = não inclui a privada)
+            minhaChavePublica = rsa.ToXmlString(false);
+
+            // Extrair a Chave Privada (true = inclui a privada)
+            minhaChavePrivada = rsa.ToXmlString(true);
+
+            // Só para testares e veres se funcionou (podes apagar isto depois):
+            MessageBox.Show("Chaves RSA geradas com sucesso ao iniciar o cliente!");
         }
     }
 }
