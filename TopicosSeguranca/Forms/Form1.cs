@@ -33,24 +33,18 @@ namespace TopicosSeguranca
         {
             string msg = txtChat.Text;
             conectar.LerMensagem(msg);
-
-            // REMOVIDO: lstMensagens.Items.Add(msg); 
-            // Motivo: O servidor vai ecoar de volta para você, caindo no método abaixo.
-
             txtChat.Clear();
         }
-
-        // Método Público e Thread-Safe para adicionar as mensagens vindas do servidor
+       
         public void AdicionarMensagemNoChat(string msg)
         {
             if (lstMensagens.InvokeRequired)
             {
-                // Se veio de outra thread (da classe Conectar), sincroniza com a thread da UI
+                //Atualiza as mensagens em tempo real
                 lstMensagens.Invoke(new Action(() => lstMensagens.Items.Add(msg)));
             }
             else
-            {
-                // Se já estiver na thread principal
+            {                
                 lstMensagens.Items.Add(msg);
             }
         }
@@ -61,14 +55,11 @@ namespace TopicosSeguranca
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        {
-            // Inicializar o RSA com um tamanho de chave de 2048 bits
+        {            
             rsa = new RSACryptoServiceProvider(2048);
-
-            // Extrair a Chave Pública (false = não inclui a privada)
+            
             minhaChavePublica = rsa.ToXmlString(false);
-
-            // Extrair a Chave Privada (true = inclui a privada)
+            
             minhaChavePrivada = rsa.ToXmlString(true);
 
             // Só para testares e veres se funcionou (podes apagar isto depois):

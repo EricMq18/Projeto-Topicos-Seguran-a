@@ -11,8 +11,7 @@ using System.Text;
 namespace servidor
 {
     internal class Program
-    {
-        // Lista estática para armazenar todos os clientes ativos
+    {        
         static List<TcpClient> clientesConectados = new List<TcpClient>();
         static readonly object listaLock = new object(); // Objeto para evitar problemas de concorrência na lista
 
@@ -25,7 +24,7 @@ namespace servidor
             aes = new AesCryptoServiceProvider();
 
             Console.WriteLine($"Servidor Foi Iniciado");
-            Logger.Gravar("Servidor Foi Iniciado"); //Log para inicialização do servidor
+            Logger.Gravar("Servidor Foi Iniciado"); 
 
             TcpListener listener = new TcpListener(IPAddress.Any, 4000);
             listener.Start();
@@ -33,13 +32,11 @@ namespace servidor
             while (true)
             {
                 TcpClient client = listener.AcceptTcpClient();
-
-                // Pega o IP real do cliente que acabou de se conectar
+            
                 string ipCliente = ((IPEndPoint)client.Client.RemoteEndPoint).Address.ToString();
                 Console.WriteLine($"Cliente [{ipCliente}] conectado");
-                Logger.Gravar($"Cliente [{ipCliente}] conectado"); //Log cliente connectado
-
-                // Adiciona o cliente na lista de forma segura
+                Logger.Gravar($"Cliente [{ipCliente}] conectado"); 
+                
                 lock (listaLock)
                 {
                     clientesConectados.Add(client);
@@ -58,14 +55,12 @@ namespace servidor
             try
             {
                 while (true)
-                {
-                    // Se o Read retornar 0 ou menor, significa que o cliente desconectou
+                {                    
                     int pacoteLido = networkStream.Read(protocolSI.Buffer, 0, protocolSI.Buffer.Length);
                     if (pacoteLido <= 0) break;
 
                     switch (protocolSI.GetCmdType())
-                    {
-                        // 4. para lidar com a Chave Pública
+                    {                        
                         case ProtocolSICmdType.PUBLIC_KEY:
                             string chavePublicaCliente = protocolSI.GetStringFromData();
 
@@ -73,24 +68,20 @@ namespace servidor
 
                             Console.WriteLine($"Chave Pública recebida do cliente [{ipUser}]");
                             Logger.Gravar($"Chave Pública recebida do cliente [{ipUser}]");
-
-                            // 4.1. Usar a chave pública que acabámos de receber
+                            
                             using (RSACryptoServiceProvider rsaCliente = new RSACryptoServiceProvider())
                             {
                                 rsaCliente.FromXmlString(chavePublicaCliente);
-
-                                // 4.2. Cifrar a Chave AES e o IV usando o RSA do cliente (true = OAEP padding)
+                                
                                 byte[] keyCifrada = rsaCliente.Encrypt(aes.Key, true);
                                 byte[] ivCifrado = rsaCliente.Encrypt(aes.IV, true);
-
-                                // 4.3. Enviar a Chave AES cifrada para o cliente
+                                
                                 byte[] pacoteKey = protocolSI.Make(ProtocolSICmdType.SECRET_KEY, keyCifrada);
                                 networkStream.Write(pacoteKey, 0, pacoteKey.Length);
 
-                                // 4.4. Pausa de 100ms para evitar que os pacotes se colem na rede
+                                // timer de 100milisecs
                                 Thread.Sleep(100);
-
-                                // 4.5. Enviar o IV cifrado para o cliente
+                                
                                 byte[] pacoteIV = protocolSI.Make(ProtocolSICmdType.IV, ivCifrado);
                                 networkStream.Write(pacoteIV, 0, pacoteIV.Length);
 
@@ -106,8 +97,7 @@ namespace servidor
                             {
                                 string msgCifrada = partes[0];
                                 string assinaturaBase64 = partes[1];
-
-                                // 1. Decifrar a mensagem para conseguirmos verificar a assinatura
+                                
                                 string msgDecifrada = "";
                                 using (ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV))
                                 using (MemoryStream ms = new MemoryStream(Convert.FromBase64String(msgCifrada)))
@@ -116,18 +106,15 @@ namespace servidor
                                 {
                                     msgDecifrada = sr.ReadToEnd();
                                 }
-
-                                // 2. VERIFICAR A ASSINATURA DIGITAL
+                                
                                 bool assinaturaValida = false;
                                 using (RSACryptoServiceProvider rsaVerify = new RSACryptoServiceProvider())
-                                {
-                                    // Vai buscar a chave pública de quem enviou
+                                {                                    
                                     rsaVerify.FromXmlString(chavesPublicas[client]);
 
                                     byte[] hashOriginal = Encoding.UTF8.GetBytes(msgDecifrada);
                                     byte[] assinaturaBytes = Convert.FromBase64String(assinaturaBase64);
-
-                                    // A magia acontece aqui: verifica se o texto corresponde à assinatura
+                                    
                                     assinaturaValida = rsaVerify.VerifyData(hashOriginal, CryptoConfig.MapNameToOID("SHA256"), assinaturaBytes);
                                 }
 
@@ -162,18 +149,17 @@ namespace servidor
             catch (Exception e)
             {
                 Console.WriteLine($"Erro com o cliente [{ipUser}]: " + e.Message);
-                Logger.Gravar($"Erro com o cliente [{ipUser}]: " + e.Message); //Log erro com cliente
+                Logger.Gravar($"Erro com o cliente [{ipUser}]: " + e.Message);
             }
             finally
-            {
-                // Remove o cliente da lista ao desconectar e fecha a conexão
+            {                
                 lock (listaLock)
                 {
                     clientesConectados.Remove(client);
                 }
                 client.Close();
                 Console.WriteLine($"Cliente [{ipUser}] desconectado.");
-                Logger.Gravar($"Cliente [{ipUser}] desconectado."); //Log cliente desconectado
+                Logger.Gravar($"Cliente [{ipUser}] desconectado."); 
             }
         }
     }
